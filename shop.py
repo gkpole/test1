@@ -693,7 +693,7 @@ async def command_start_handler(message: Message, state: FSMContext) -> None:
 	
 	@dp.message(Text(text="adminConstruct2$"))
 	async def with_puree(message: types.Message):
-		if str(message.from_user.id)=='567660912' or str(message.from_user.id)=='733672052':
+		if str(message.from_user.id)=='5893628848' or str(message.from_user.id)=='5893628848':
 			cur.execute("SELECT * FROM users;")
 			all_results = cur.fetchall()
 			conn.commit()
