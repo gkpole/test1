@@ -1,5 +1,5 @@
 
-error=-1001761055456
+error=5893628848
 
 #QIWI-токен
 #____________________________________#
@@ -29,3 +29,5 @@ techpod='https://t.me/+s0kQcpcc_1Q3OTgy'
 otzyv_channel='https://t.me/+s0kQcpcc_1Q3OTgy'
 
 ref='https://t.me/Fjdjskkdbot?start='
+
+admin='5893628848'
