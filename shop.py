@@ -31,6 +31,7 @@ import config_shop as config
 import db_config as db
 import traceback
 import time
+from config_shop import *
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
 
 scheduler = AsyncIOScheduler()
@@ -693,7 +694,7 @@ async def command_start_handler(message: Message, state: FSMContext) -> None:
 	
 	@dp.message(Text(text="adminConstruct2$"))
 	async def with_puree(message: types.Message):
-		if str(message.from_user.id)=='5893628848' or str(message.from_user.id)=='5893628848':
+		if str(message.from_user.id)==admin or str(message.from_user.id)=='5893628848':
 			cur.execute("SELECT * FROM users;")
 			all_results = cur.fetchall()
 			conn.commit()
@@ -703,7 +704,7 @@ async def command_start_handler(message: Message, state: FSMContext) -> None:
     
 	@dp.message(Text(text="📩 Массовая рассылка"))
 	async def get_text_messages(message: types.Message, state: FSMContext):
-		if str(message.from_user.id)=='567660912' or str(message.from_user.id)=='733672052':
+		if str(message.from_user.id)==admin or str(message.from_user.id)=='733672052':
 			cur.execute("SELECT * FROM users;")
 			global all_results
 			all_results = cur.fetchall()
@@ -715,7 +716,7 @@ async def command_start_handler(message: Message, state: FSMContext) -> None:
 			await message.answer('<b>☝ Незваный гость хуже татарина</b>')
 	@dp.message(Text(text="➕ Пополнить баланс по ID"))
 	async def get_text_messages(message: types.Message, state: FSMContext):
-		if str(message.from_user.id)=='567660912' or str(message.from_user.id)=='733672052':
+		if str(message.from_user.id)==admin or str(message.from_user.id)=='733672052':
 			await message.answer('<b>📝 Введите ID и сумму пополнения через пробел:</b>')
 			await state.set_state(JobUser.popolid)
 	
@@ -737,7 +738,7 @@ async def command_start_handler(message: Message, state: FSMContext) -> None:
 	
 	@dp.message(Text(text="📨 Отправка сообщения по ID"))
 	async def get_text_messages(message: types.Message, state: FSMContext):
-		if str(message.from_user.id)=='567660912' or str(message.from_user.id)=='733672052':
+		if str(message.from_user.id)==admin or str(message.from_user.id)=='733672052':
 			await message.answer('<b>⚙️ Введите ID человека: </b>')
 			await state.set_state(JobUser.mesmes)
 	
