@@ -28,6 +28,7 @@ from psycopg2 import Error
 from psycopg2.extensions import ISOLATION_LEVEL_AUTOCOMMIT
 import keyboards_panel as kb
 import config_panel as config
+from config_shop import *
 import db_config as db
 from datetime import datetime, date, time
 import time
@@ -134,12 +135,12 @@ def generate_random_string(length):
 
 @dp.message(Command(commands=["start"]))
 async def command_start_handler(message: Message) -> None:
-	if str(message.from_user.id)=='567660912'or str(message.from_user.id)=='733672052':
+	if str(message.from_user.id)==admin or str(message.from_user.id)==admin:
 		await message.answer("Привет👋\n\n<b>Добро пожаловать в админ-панель магазина.</b> \n\n<em>Что будем делать?</em>", reply_markup=kb.keyboard_inital,  parse_mode="html")
 	
 	@dp.message(Text(text="📈 Статистика"))
 	async def get_text_messages(message: types.Message):
-		if str(message.from_user.id)=='567660912'or str(message.from_user.id)=='733672052':
+		if str(message.from_user.id)==admin or str(message.from_user.id)==admin:
 			cur.execute('SELECT * FROM users ')
 			user_info=cur.fetchall()
 			conn.commit()
@@ -157,23 +158,23 @@ async def command_start_handler(message: Message) -> None:
 		
 	@dp.message(Text(text="🔙 Назад"))
 	async def get_text_messages(message: types.Message):
-		if str(message.from_user.id)=='567660912'or str(message.from_user.id)=='733672052':
+		if str(message.from_user.id)==admin or str(message.from_user.id)==admin:
 			await message.answer("Привет👋\n\n<b>Добро пожаловать в админ-панель магазина.</b> \n\n<em>Что будем делать?</em>", reply_markup=kb.keyboard_inital,  parse_mode="html")
 
 	@dp.message(Text(text="🏷️ Промокоды"))
 	async def get_text_messages(message: types.Message):
-		if str(message.from_user.id)=='567660912'or str(message.from_user.id)=='733672052':
+		if str(message.from_user.id)==admin or str(message.from_user.id)==admin:
 			await message.answer('🏷️<b>На что будем делать промокод?</b>',reply_markup=kb.keyboard_kupon)
 	
 	@dp.message(Text(text="📦 Товар"))
 	async def get_text_messages(message: types.Message, state: FSMContext):
-		if str(message.from_user.id)=='567660912'or str(message.from_user.id)=='733672052':
+		if str(message.from_user.id)==admin or str(message.from_user.id)==admin:
 			await message.answer('📦<b>Что получит пользователь, когда ведёт промокод?</b>')
 			await state.set_state(AdPromoTovar.ad_promo_tovar)
 		
 	@dp.message(state=AdPromoTovar.ad_promo_tovar)
 	async def ad_category_text(message: types.Message, state: FSMContext):
-		if str(message.from_user.id)=='567660912'or str(message.from_user.id)=='733672052':
+		if str(message.from_user.id)==admin or str(message.from_user.id)==admin:
 			await state.update_data(ad_category=message.text)
 			promo=generate_random_string(16)
 			promo='T'+promo
@@ -185,13 +186,13 @@ async def command_start_handler(message: Message) -> None:
 
 	@dp.message(Text(text="💲 Деньги"))
 	async def get_text_messages(message: types.Message, state: FSMContext):
-		if str(message.from_user.id)=='567660912'or str(message.from_user.id)=='733672052':
+		if str(message.from_user.id)==admin or str(message.from_user.id)==admin:
 			await message.answer('💲<b>Какой номинал промокода?</b>')
 			await state.set_state(AdPromoMoney.ad_promo_money)
 	
 	@dp.message(state=AdPromoMoney.ad_promo_money)
 	async def ad_category_text(message: types.Message, state: FSMContext):
-		if str(message.from_user.id)=='567660912'or str(message.from_user.id)=='733672052':
+		if str(message.from_user.id)==admin or str(message.from_user.id)==admin:
 			await state.update_data(ad_category=message.text)
 			promo=generate_random_string(16)
 			promo='M'+promo
@@ -203,13 +204,13 @@ async def command_start_handler(message: Message) -> None:
 		
 	@dp.message(Text(text="💯 Скидка"))
 	async def get_text_messages(message: types.Message, state: FSMContext):
-		if str(message.from_user.id)=='567660912'or str(message.from_user.id)=='733672052':
+		if str(message.from_user.id)==admin or str(message.from_user.id)==admin:
 			await message.answer('💯 <b>Процент скидки?</b>')
 			await state.set_state(AdPromoSkidka.ad_promo_skidka)
 		
 	@dp.message(state=AdPromoSkidka.ad_promo_skidka)
 	async def ad_category_text(message: types.Message, state: FSMContext):
-		if str(message.from_user.id)=='567660912'or str(message.from_user.id)=='733672052':
+		if str(message.from_user.id)==admin or str(message.from_user.id)==admin:
 			await state.update_data(ad_category=message.text)
 			promo=generate_random_string(16)
 			promo='S'+promo
@@ -221,7 +222,7 @@ async def command_start_handler(message: Message) -> None:
 
 	@dp.message(Text(text="👤 Пользователи"))
 	async def get_text_messages(message: types.Message):
-		if str(message.from_user.id)=='567660912'or str(message.from_user.id)=='733672052':
+		if str(message.from_user.id)==amdin or str(message.from_user.id)==admin:
 			cur.execute('SELECT * FROM users ')
 			user_info=cur.fetchall()
 			conn.commit()
@@ -230,13 +231,13 @@ async def command_start_handler(message: Message) -> None:
 				time.sleep(1)
 	@dp.message(Text(text="📦 Добавить новый товар"))
 	async def get_text_messages(message: types.Message, state: FSMContext):
-		if str(message.from_user.id)=='567660912'or str(message.from_user.id)=='733672052':
+		if str(message.from_user.id)==admin or str(message.from_user.id)==admin:
 			await message.answer('🗃️<b> Какая категория товара?</b>\n\n<b>⚠️ Отменить ввод и перейти в главное меню: введи</b> "<pre>stop</pre>"')
 			await state.set_state(AdCategory.ad_category)
 
 	@dp.message(state=AdCategory.ad_category)
 	async def ad_category_text(message: types.Message, state: FSMContext):
-		if str(message.from_user.id)=='567660912'or str(message.from_user.id)=='733672052':
+		if str(message.from_user.id)==admin or str(message.from_user.id)=='733672052':
 			await state.update_data(ad_category=message.text)
 			if message.text=='stop':
 				await message.answer("Привет👋\n\n<b>Добро пожаловать в админ-панель магазина.</b> \n\n<em>Что будем делать?</em>", reply_markup=kb.keyboard_inital,  parse_mode="html")
@@ -249,7 +250,7 @@ async def command_start_handler(message: Message) -> None:
 	
 	@dp.message(state=AdPodcategory.ad_podcategory)
 	async def ad_podcategory_text(message: types.Message, state: FSMContext):
-		if str(message.from_user.id)=='567660912'or str(message.from_user.id)=='733672052':
+		if str(message.from_user.id)==admin or str(message.from_user.id)=='733672052':
 			await state.update_data(ad_category=message.text)
 			if message.text=='stop':
 				await message.answer("Привет👋\n\n<b>Добро пожаловать в админ-панель магазина.</b> \n\n<em>Что будем делать?</em>", reply_markup=kb.keyboard_inital,  parse_mode="html")
@@ -262,7 +263,7 @@ async def command_start_handler(message: Message) -> None:
 
 	@dp.message(state=AdName.ad_name)
 	async def ad_name(message: types.Message, state: FSMContext):
-		if str(message.from_user.id)=='567660912'or str(message.from_user.id)=='733672052':
+		if str(message.from_user.id)==admin or str(message.from_user.id)=='733672052':
 			await state.update_data(ad_name=message.text)
 			if message.text=='stop':
 				await message.answer("Привет👋\n\n<b>Добро пожаловать в админ-панель магазина.</b> \n\n<em>Что будем делать?</em>", reply_markup=kb.keyboard_inital,  parse_mode="html")
@@ -275,7 +276,7 @@ async def command_start_handler(message: Message) -> None:
 
 	@dp.message(state=AdDescription.ad_description)
 	async def ad_description(message: types.Message, state: FSMContext):
-		if str(message.from_user.id)=='567660912'or str(message.from_user.id)=='733672052':
+		if str(message.from_user.id)==admin or str(message.from_user.id)=='733672052':
 			await state.update_data(ad_description=message.text)
 			if message.text=='stop':
 				await message.answer("Привет👋\n\n<b>Добро пожаловать в админ-панель магазина.</b> \n\n<em>Что будем делать?</em>", reply_markup=kb.keyboard_inital,  parse_mode="html")
@@ -288,7 +289,7 @@ async def command_start_handler(message: Message) -> None:
 
 	@dp.message(state=AdPrice.ad_price)
 	async def ad_price(message: types.Message, state: FSMContext):
-		if str(message.from_user.id)=='567660912'or str(message.from_user.id)=='733672052':
+		if str(message.from_user.id)==admin or str(message.from_user.id)=='733672052':
 			await state.update_data(ad_price=message.text)
 			if message.text=='stop':
 				await message.answer("Привет👋\n\n<b>Добро пожаловать в админ-панель магазина.</b> \n\n<em>Что будем делать?</em>", reply_markup=kb.keyboard_inital,  parse_mode="html")
@@ -301,7 +302,7 @@ async def command_start_handler(message: Message) -> None:
 
 	@dp.message(content_types=types.ContentType.ANY,state=AdLinks.ad_links)
 	async def ad_links(message: types.Message, state: FSMContext):
-		if str(message.from_user.id)=='567660912'or str(message.from_user.id)=='733672052':
+		if str(message.from_user.id)==admin or str(message.from_user.id)=='733672052':
 			await state.update_data(ad_links=message.text)
 			if message.text=='stop':
 				await message.answer("Привет👋\n\n<b>Добро пожаловать в админ-панель магазина.</b> \n\n<em>Что будем делать?</em>", reply_markup=kb.keyboard_inital,  parse_mode="html")
@@ -351,7 +352,7 @@ async def command_start_handler(message: Message) -> None:
 	
 	@dp.message(Text(text="📝 Редактирование товаров"))
 	async def get_text_messages(message: types.Message, state: FSMContext):
-		if str(message.from_user.id)=='567660912'or str(message.from_user.id)=='733672052':
+		if str(message.from_user.id)==admin or str(message.from_user.id)=='733672052':
 			await state.update_data(jobs=message.text)
 			user_ids=message.from_user.id
 			print('Вот ID: '+ str(user_ids))
@@ -377,7 +378,7 @@ async def command_start_handler(message: Message) -> None:
 	
 	@dp.callback_query(state=JobUser.kod)
 	async def stoptopupcall(callback_query: types.CallbackQuery, state: FSMContext):
-		if str(callback_query.from_user.id)=='567660912'or str(callback_query.from_user.id)=='733672052':
+		if str(callback_query.from_user.id)==admin or str(callback_query.from_user.id)=='733672052':
 			cur.execute('SELECT * FROM product WHERE category = %s', (callback_query.data, ))
 			all_results = cur.fetchall()
 			kol=len(all_results)
@@ -408,7 +409,7 @@ async def command_start_handler(message: Message) -> None:
 	
 	@dp.callback_query(state=JobUser.podcat)
 	async def stoptopupcall(callback_query: types.CallbackQuery, state: FSMContext):
-		if str(callback_query.from_user.id)=='567660912'or str(callback_query.from_user.id)=='733672052':
+		if str(callback_query.from_user.id)==admin or str(callback_query.from_user.id)=='733672052':
 			user_ids=callback_query.from_user.id
 			print('Вот ID: '+ str(user_ids))
 			cur.execute('SELECT * FROM product WHERE podcategory = %s', (callback_query.data, ))
@@ -428,7 +429,7 @@ async def command_start_handler(message: Message) -> None:
 	
 	@dp.callback_query(state=JobUser.job)
 	async def stoptopupcall(callback_query: types.CallbackQuery, state: FSMContext):
-		if str(callback_query.from_user.id)=='567660912'or str(callback_query.from_user.id)=='733672052':
+		if str(callback_query.from_user.id)==admin or str(callback_query.from_user.id)=='733672052':
 			await state.update_data(jobs=callback_query.data)
 			user_ids=callback_query.from_user.id
 			global tab_name
@@ -452,7 +453,7 @@ async def command_start_handler(message: Message) -> None:
 			return await state.set_state(JobUser.but)
 	@dp.callback_query(state=JobUser.but)
 	async def stoptopupcall(callback_query: types.CallbackQuery, state: FSMContext):
-		if str(callback_query.from_user.id)=='567660912'or str(callback_query.from_user.id)=='733672052':
+		if str(callback_query.from_user.id)==admin or str(callback_query.from_user.id)=='733672052':
 			await state.update_data(jobs=callback_query.data)
 			if callback_query.data=='delete_tovar':
 				#tab_info = cur.execute('SELECT * FROM shop WHERE name = ?', (str(tab_name), )).fetchone()
